@@ -118,6 +118,15 @@ CLOUDINARY_STORAGE = {
 }
 MEDIA_URL = '/media/'
 
+# Inicializa o SDK do Cloudinary globalmente para evitar erros com CloudinaryField
+import cloudinary
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET'],
+    secure=True,
+)
+
 # CKEditor 5
 CKEDITOR_5_CONFIGS = {
     'default': {
