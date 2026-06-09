@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Categoria
+from .models import Post, Categoria, Autor
 
 
 @admin.register(Categoria)
@@ -9,10 +9,16 @@ class CategoriaAdmin(admin.ModelAdmin):
     search_fields = ['nome']
 
 
+@admin.register(Autor)
+class AutorAdmin(admin.ModelAdmin):
+    list_display = ['nome', 'cargo', 'linkedin']
+    search_fields = ['nome', 'cargo', 'bio']
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'categoria', 'publicado', 'data_criacao']
-    list_filter = ['publicado', 'categoria', 'data_criacao']
+    list_display = ['titulo', 'autor', 'categoria', 'publicado', 'data_criacao']
+    list_filter = ['publicado', 'autor', 'categoria', 'data_criacao']
     search_fields = ['titulo', 'resumo', 'conteudo']
     prepopulated_fields = {'slug': ('titulo',)}
     list_editable = ['publicado']
@@ -22,6 +28,6 @@ class PostAdmin(admin.ModelAdmin):
             'fields': ('titulo', 'slug', 'resumo', 'conteudo', 'imagem_capa')
         }),
         ('Classificação', {
-            'fields': ('categoria', 'publicado')
+            'fields': ('categoria', 'autor', 'publicado')
         }),
     )

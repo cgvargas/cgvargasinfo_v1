@@ -55,6 +55,7 @@
         <div class="blog-card-body">
           <div class="blog-card-meta">
             {% if post.categoria %}<span class="badge">{{ post.categoria.nome }}</span>{% endif %}
+            {% if post.autor %}<span style="color:var(--text-muted);font-size:0.8rem;margin-right:auto;">✍️ {{ post.autor.nome }}</span>{% endif %}
             <time datetime="{{ post.data_criacao|date:'Y-m-d' }}">{{ post.data_criacao|date:"d/m/Y" }}</time>
           </div>
           <h3><a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a></h3>
