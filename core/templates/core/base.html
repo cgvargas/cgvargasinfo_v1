@@ -18,7 +18,7 @@
   <meta property="og:site_name"   content="CGVargas Informática">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,8 +36,8 @@
   <div class="container">
     <div class="navbar-inner">
 
-      <a href="{% url 'core:home' %}" class="navbar-brand" aria-label="CGVargas Informática — Início">
-        <div class="brand-dot"></div>
+      <a href="{% url 'core:home' %}" class="navbar-brand" aria-label="CGVargas Informática — Início" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="{% static 'img/logo.jpg' %}" alt="CGVargas Logo" style="height:38px;width:38px;object-fit:cover;border-radius:6px;margin-right:10px;border:1px solid rgba(0,114,255,0.3);box-shadow: 0 0 10px rgba(0,114,255,0.2);">
         CGVargas<span style="color:var(--cyan)">.</span>
       </a>
 
@@ -85,8 +85,8 @@
     <div class="footer-grid">
 
       <div class="footer-brand">
-        <div class="footer-brand-logo">
-          <div class="brand-dot"></div>
+        <div class="footer-brand-logo" style="display:flex;align-items:center;margin-bottom:1rem;">
+          <img src="{% static 'img/logo.jpg' %}" alt="CGVargas Logo" style="height:44px;width:44px;object-fit:cover;border-radius:6px;margin-right:12px;border:1px solid rgba(0,114,255,0.3);box-shadow: 0 0 12px rgba(0,114,255,0.25);">
           CGVargas<span style="color:var(--cyan)">.</span>
         </div>
         <p>Transformamos ideias em soluções digitais. Sistemas personalizados, integração com IA e desenvolvimento web para empresas e criadores.</p>
