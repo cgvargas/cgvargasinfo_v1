@@ -18,10 +18,14 @@ def lista(request):
 
 
 def detalhe(request, slug):
-    projeto = get_object_or_404(Projeto, slug=slug)
+    projeto = get_object_or_404(
+        Projeto.objects.prefetch_related('imagens', 'videos', 'tecnologias'), 
+        slug=slug
+    )
     outros_projetos = Projeto.objects.exclude(pk=projeto.pk)[:3]
 
     return render(request, 'portfolio/detalhe.html', {
         'projeto': projeto,
         'outros_projetos': outros_projetos,
     })
+

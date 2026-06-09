@@ -1,5 +1,17 @@
 from django.contrib import admin
-from .models import Projeto, Tecnologia
+from .models import Projeto, Tecnologia, ImagemProjeto, VideoProjeto
+
+
+class ImagemProjetoInline(admin.TabularInline):
+    model = ImagemProjeto
+    extra = 1
+    fields = ['imagem', 'legenda', 'ordem']
+
+
+class VideoProjetoInline(admin.TabularInline):
+    model = VideoProjeto
+    extra = 1
+    fields = ['video', 'youtube_url', 'titulo', 'ordem']
 
 
 @admin.register(Tecnologia)
@@ -16,6 +28,7 @@ class ProjetoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('nome',)}
     list_editable = ['destaque', 'ordem']
     filter_horizontal = ['tecnologias']
+    inlines = [ImagemProjetoInline, VideoProjetoInline]
     fieldsets = (
         ('Informações', {
             'fields': ('nome', 'slug', 'descricao_curta', 'descricao', 'imagem')
@@ -27,3 +40,4 @@ class ProjetoAdmin(admin.ModelAdmin):
             'fields': ('tecnologias', 'destaque', 'ordem', 'data_conclusao')
         }),
     )
+

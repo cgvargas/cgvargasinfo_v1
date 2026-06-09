@@ -39,3 +39,35 @@ class Projeto(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('portfolio:detalhe', kwargs={'slug': self.slug})
+
+
+class ImagemProjeto(models.Model):
+    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE, related_name='imagens')
+    imagem = CloudinaryField('Imagem')
+    legenda = models.CharField(max_length=150, blank=True, null=True)
+    ordem = models.PositiveIntegerField(default=0, help_text='Ordem de exibição na galeria')
+
+    class Meta:
+        verbose_name = 'Imagem do Projeto'
+        verbose_name_plural = 'Imagens dos Projetos'
+        ordering = ['ordem', 'id']
+
+    def __str__(self):
+        return f"Imagem de {self.projeto.nome} ({self.id})"
+
+
+class VideoProjeto(models.Model):
+    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE, related_name='videos')
+    video = CloudinaryField('Vídeo', blank=True, null=True, help_text="Upload de vídeo curto (Cloudinary)")
+    youtube_url = models.URLField(blank=True, null=True, verbose_name="URL do YouTube", help_text="Link do vídeo no YouTube")
+    titulo = models.CharField(max_length=150, blank=True, null=True)
+    ordem = models.PositiveIntegerField(default=0, help_text='Ordem de exibição na galeria')
+
+    class Meta:
+        verbose_name = 'Vídeo do Projeto'
+        verbose_name_plural = 'Vídeos dos Projetos'
+        ordering = ['ordem', 'id']
+
+    def __str__(self):
+        return self.titulo or f"Vídeo de {self.projeto.nome} ({self.id})"
+
