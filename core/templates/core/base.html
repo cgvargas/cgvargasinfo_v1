@@ -36,8 +36,11 @@
   <div class="container">
     <div class="navbar-inner">
 
-      <a href="{% url 'core:home' %}" class="navbar-brand" aria-label="CGVargas Informática — Início" style="display:flex;align-items:center;text-decoration:none;padding: 0.1rem 0;">
-        <img src="{% static 'img/full_logo.jpg' %}" alt="CGVargas Informática" style="height:76px;width:76px;object-fit:cover;border-radius:8px;border:1.5px solid rgba(0,114,255,0.3);box-shadow: 0 0 15px rgba(0,114,255,0.25);">
+      <a href="{% url 'core:home' %}" class="navbar-brand" aria-label="CGVargas Informática — Início" style="display:flex;align-items:center;text-decoration:none;gap:0;padding:0.1rem 0;">
+        <img src="{% static 'img/favicon.png' %}" alt="Vargas Informática Logo" style="height:140px;width:140px;object-fit:contain;margin-right:-16px;z-index:2;">
+        <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.8rem; color: var(--text-primary); letter-spacing: -1.5px; line-height: 0.95; z-index:1; padding-left: 0;">
+          Vargas<span style="display:block; font-size:0.85rem; font-weight:600; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin-top:4px; padding-left:35px;">informática</span>
+        </div>
       </a>
 
       <ul class="navbar-menu" id="navMenu" role="list">
@@ -84,8 +87,11 @@
     <div class="footer-grid">
 
       <div class="footer-brand">
-        <a href="{% url 'core:home' %}" class="footer-brand-logo" style="display:inline-block;margin-bottom:1rem;text-decoration:none;">
-          <img src="{% static 'img/full_logo.jpg' %}" alt="CGVargas Informática" style="height:110px;width:110px;object-fit:cover;border-radius:12px;border:2px solid rgba(0,114,255,0.35);box-shadow: 0 0 20px rgba(0,114,255,0.35);">
+        <a href="{% url 'core:home' %}" class="footer-brand-logo" style="display:flex;align-items:center;text-decoration:none;gap:0;margin-bottom:1rem;">
+          <img src="{% static 'img/favicon.png' %}" alt="Vargas Informática Logo" style="height:150px;width:150px;object-fit:contain;margin-right:-20px;z-index:2;">
+          <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 3.0rem; color: var(--text-primary); letter-spacing: -1.5px; line-height: 0.95; z-index:1; text-align:left;">
+            Vargas<span style="display:block; font-size:0.95rem; font-weight:600; color:var(--cyan); letter-spacing:3.5px; text-transform:uppercase; margin-top:4px; padding-left:40px;">informática</span>
+          </div>
         </a>
         <p>Transformamos ideias em soluções digitais. Sistemas personalizados, integração com IA e desenvolvimento web para empresas e criadores.</p>
       </div>

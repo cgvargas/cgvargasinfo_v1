@@ -1,120 +1,466 @@
 {% extends 'core/base.html' %}
-{% block title %}Glossário de TI — Termos de Tecnologia — CGVargas{% endblock %}
-{% block meta_description %}Glossário completo de termos de tecnologia da informação. Encontre definições claras e objetivas sobre TI, programação, redes e muito mais.{% endblock %}
+{% load static %}
+
+{% block title %}Glossário de TI — Dicionário de Tecnologia — CGVargas{% endblock %}
+{% block meta_description %}Glossário completo de termos de tecnologia da informação. Encontre definições claras, tags e siglas de programação, banco de dados, redes e IA.{% endblock %}
 
 {% block content %}
+<style>
+  /* Estilos específicos do Glossário Wix Style */
+  .glossario-hero-custom {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(135deg, #070d1a 0%, #001f4d 100%);
+    border-bottom: 1px solid rgba(0, 114, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .glossario-hero-custom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0, 198, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
 
-<section class="glossario-hero">
+  .glossario-hero-custom h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+  }
+  
+  .glossario-hero-custom p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Estatísticas em cards */
+  .glossario-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 992px) {
+    .glossario-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .glossario-stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .glossario-stat-card {
+    padding: 1.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .glossario-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .card-termos {
+    background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
+  }
+
+  .card-categorias {
+    background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+  }
+
+  .card-novos {
+    background: linear-gradient(135deg, #6366f1 0%, #3730a3 100%);
+  }
+
+  .card-atualizado {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  }
+
+  .stat-number {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+
+  /* Filtros de Categoria */
+  .category-chips-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .category-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    justify-content: center;
+    max-width: 1000px;
+  }
+
+  .category-chip {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.55rem 1.3rem;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .category-chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .category-chip.active {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+  }
+
+  /* Busca */
+  .glossario-search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .glossario-search-box {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .glossario-search-box .search-icon {
+    position: absolute;
+    left: 1.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.15rem;
+    color: var(--text-muted);
+  }
+
+  .glossario-search-box input {
+    width: 100%;
+    padding: 1.1rem 3.5rem 1.1rem 3.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .glossario-search-box input:focus {
+    border-color: var(--cyan);
+    background: rgba(0, 198, 255, 0.04);
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.15);
+  }
+
+  .clear-search-btn {
+    position: absolute;
+    right: 1.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+  }
+
+  .clear-search-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Grid de Termos */
+  .glossario-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .glossario-term-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 2.25rem;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glossario-term-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0.8;
+  }
+
+  .glossario-term-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 198, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 114, 255, 0.15);
+  }
+
+  .term-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .term-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .term-word {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .term-subtitle-badge {
+    background: rgba(0, 114, 255, 0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(0, 198, 255, 0.25);
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.3px;
+  }
+
+  .term-new-badge {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 0.25rem 0.65rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.5px;
+  }
+
+  .term-category-badge {
+    border: 1px solid rgba(0, 114, 255, 0.3);
+    color: #00c6ff;
+    background: rgba(0, 114, 255, 0.05);
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .term-card-body {
+    margin-bottom: 1.25rem;
+  }
+
+  .term-definition {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .term-card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 1rem;
+  }
+
+  .term-tag-pill {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+  }
+
+  .term-tag-pill:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .fade-in {
+    animation: fadeInUp 0.4s ease forwards;
+  }
+</style>
+
+<section class="glossario-hero-custom">
   <div class="container">
-    <div class="page-hero-content">
-      <div class="breadcrumb">
+    <div class="page-hero-content reveal">
+      <div class="breadcrumb" style="justify-content: center; margin-bottom: 1rem;">
         <a href="{% url 'core:home' %}">Início</a>
         <span class="breadcrumb-sep">›</span>
         <span>Glossário de TI</span>
       </div>
       <h1>Glossário de <span class="text-gradient">TI</span></h1>
-      <p>Definições claras e objetivas dos principais termos de tecnologia da informação.</p>
-
-      <div class="glossario-search" style="margin-top:2rem;">
-        <span class="glossario-search-icon">🔍</span>
-        <input
-          type="search"
-          id="glossSearchInput"
-          name="q"
-          value="{{ busca }}"
-          placeholder="Buscar termo..."
-          aria-label="Buscar termos no glossário"
-          autocomplete="off">
-      </div>
+      <p>Dicionário completo de termos de Tecnologia da Informação. Filtre e busque definições de programação, hardware, redes, IA e banco de dados.</p>
     </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:2rem;">
+<section class="section" style="padding-top: 3rem;">
   <div class="container">
-
-    <!-- Navegação A-Z -->
-    <nav class="alpha-nav reveal" aria-label="Navegar por letra">
-      {% for letra in alfabeto %}
-      {% if letra in letras_com_termos %}
-        <a href="?letra={{ letra }}"
-           class="alpha-btn has-terms {% if letra_filtro == letra %}active{% endif %}"
-           aria-label="Termos com a letra {{ letra }}">{{ letra }}</a>
-      {% else %}
-        <span class="alpha-btn disabled" aria-hidden="true">{{ letra }}</span>
-      {% endif %}
-      {% endfor %}
-    </nav>
-
-    <!-- Estado de busca -->
-    {% if busca %}
-    <div class="reveal" style="margin-bottom:2rem;">
-      <p style="color:var(--text-secondary);">
-        Mostrando resultados para "<strong style="color:var(--text-primary);">{{ busca }}</strong>"
-        — {{ termos.count }} termo{{ termos.count|pluralize }} encontrado{{ termos.count|pluralize }}.
-        <a href="{% url 'glossario:index' %}" style="margin-left:0.5rem;">Limpar busca ×</a>
-      </p>
+    
+    <!-- Filtro de Busca -->
+    <div class="glossario-search-wrapper reveal">
+      <div class="glossario-search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="search" 
+          id="glossarioSearchInput" 
+          placeholder="Buscar termo..." 
+          aria-label="Buscar termos no glossário"
+          autocomplete="off">
+        <button id="clearSearchBtn" class="clear-search-btn" type="button" aria-label="Limpar busca">&times;</button>
+      </div>
     </div>
-    {% elif letra_filtro %}
-    <div class="reveal" style="margin-bottom:2rem;">
-      <p style="color:var(--text-secondary);">
-        Termos com a letra <strong style="color:var(--cyan);">{{ letra_filtro }}</strong>
-        — {{ termos.count }} termo{{ termos.count|pluralize }}.
-        <a href="{% url 'glossario:index' %}" style="margin-left:0.5rem;">Ver todos ×</a>
-      </p>
-    </div>
-    {% endif %}
 
-    <!-- Lista de termos agrupados por letra -->
-    {% if termos %}
-
-    {% if busca or letra_filtro %}
-      <!-- Sem agrupamento em modo busca ou filtro de letra -->
-      <div class="glossario-list reveal">
-        {% for termo in termos %}
-        <div class="glossario-term">
-          <div class="glossario-term-word">{{ termo.palavra }}</div>
-          <div class="glossario-term-def">{{ termo.definicao }}</div>
-          {% if termo.categoria %}
-          <span class="badge" style="margin-top:0.5rem;font-size:0.7rem;">{{ termo.categoria.nome }}</span>
-          {% endif %}
-        </div>
+    <!-- Chips de Categorias -->
+    <div class="category-chips-wrapper reveal">
+      <div class="category-chips-container">
+        <button class="category-chip active" data-category="Todos">Todos</button>
+        {% for cat in categorias %}
+        <button class="category-chip" data-category="{{ cat.nome }}">{{ cat.nome }}</button>
         {% endfor %}
       </div>
+    </div>
 
-    {% else %}
-      <!-- Agrupado por letra -->
-      {% regroup termos by letra as grupos %}
-      {% for grupo in grupos %}
-      <div class="glossario-group reveal">
-        <div class="glossario-letter" id="letra-{{ grupo.grouper }}">{{ grupo.grouper }}</div>
-        <div class="glossario-list">
-          {% for termo in grupo.list %}
-          <div class="glossario-term">
-            <div class="glossario-term-word">{{ termo.palavra }}</div>
-            <div class="glossario-term-def">{{ termo.definicao }}</div>
-            {% if termo.categoria %}
-            <span class="badge" style="margin-top:0.5rem;font-size:0.7rem;">{{ termo.categoria.nome }}</span>
+    <!-- Cards de Estatísticas -->
+    <div class="glossario-stats-grid reveal">
+      <div class="glossario-stat-card card-termos">
+        <div class="stat-number">{{ total_termos }}</div>
+        <div class="stat-label">Termos</div>
+      </div>
+      <div class="glossario-stat-card card-categorias">
+        <div class="stat-number">{{ total_categorias }}</div>
+        <div class="stat-label">Categorias</div>
+      </div>
+      <div class="glossario-stat-card card-novos">
+        <div class="stat-number">{{ novos_count }}</div>
+        <div class="stat-label">Novos</div>
+      </div>
+      <div class="glossario-stat-card card-atualizado">
+        <div class="stat-number">{{ atualizado_ano }}</div>
+        <div class="stat-label">Atualizado</div>
+      </div>
+    </div>
+
+    <!-- Container dos Cards de Termos -->
+    <div class="glossario-cards-container" id="glossarioCardsContainer">
+      {% for termo in termos %}
+      <div class="glossario-term-card fade-in" 
+           data-category="{{ termo.categoria.nome }}"
+           data-word="{{ termo.palavra|lower }}"
+           data-subtitle="{% if termo.subtitulo %}{{ termo.subtitulo|lower }}{% endif %}"
+           data-tags="{% if termo.tags %}{{ termo.tags|lower }}{% endif %}"
+           data-is-novo="{% if termo.is_novo %}true{% else %}false{% endif %}">
+        
+        <div class="term-card-header">
+          <div class="term-title-wrapper">
+            <h3 class="term-word">{{ termo.palavra }}</h3>
+            
+            {% if termo.subtitulo %}
+            <span class="term-subtitle-badge">{{ termo.subtitulo }}</span>
+            {% endif %}
+            
+            {% if termo.is_novo %}
+            <span class="term-new-badge">NOVO</span>
             {% endif %}
           </div>
+          
+          {% if termo.categoria %}
+          <div class="term-category-badge">{{ termo.categoria.nome }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="term-card-body">
+          <p class="term-definition">{{ termo.definicao }}</p>
+        </div>
+        
+        {% if termo.tags_list %}
+        <div class="term-card-footer">
+          {% for tag in termo.tags_list %}
+          <span class="term-tag-pill">{{ tag }}</span>
           {% endfor %}
         </div>
+        {% endif %}
       </div>
       {% endfor %}
-    {% endif %}
-
-    {% else %}
-    <div class="text-center" style="padding:4rem 0;">
-      <p style="font-size:3rem;margin-bottom:1rem;">📚</p>
-      {% if busca %}
-      <h3 style="margin-bottom:0.5rem;">Nenhum resultado para "{{ busca }}"</h3>
-      <p style="color:var(--text-secondary);">Tente outro termo ou <a href="{% url 'glossario:index' %}">veja todos os termos</a>.</p>
-      {% else %}
-      <h3 style="margin-bottom:0.5rem;">Glossário sendo construído</h3>
-      <p style="color:var(--text-secondary);">Em breve teremos centenas de termos disponíveis!</p>
-      {% endif %}
     </div>
-    {% endif %}
+
+    <!-- Mensagem de Sem Resultados -->
+    <div id="noResultsMessage" class="text-center" style="display: none; padding: 5rem 0;">
+      <p style="font-size: 3.5rem; margin-bottom: 1rem;">📚</p>
+      <h3 style="margin-bottom: 0.5rem; color: var(--text-primary);">Nenhum termo encontrado</h3>
+      <p style="color: var(--text-secondary);">Tente outras palavras-chave ou selecione uma categoria diferente.</p>
+    </div>
 
   </div>
 </section>
@@ -123,7 +469,7 @@
   <div class="container">
     <div class="reveal">
       <h2>Não encontrou o termo que <span class="text-gradient">procurava?</span></h2>
-      <p>Entre em contato e sugerimos a inclusão do termo no nosso glossário.</p>
+      <p>Entre em contato e envie sua sugestão de inclusão de termo em nosso glossário.</p>
       <div class="cta-actions">
         <a href="{% url 'core:contato' %}" class="btn btn-primary" id="glossCtaBtn">Sugerir Termo</a>
         <a href="{% url 'blog:lista' %}" class="btn btn-outline" id="glossBlogBtn">Ver Blog de TI</a>
@@ -132,4 +478,93 @@
   </div>
 </section>
 
+<!-- Script de Filtragem Client-Side Dinâmica -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('glossarioSearchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const categoryChips = document.querySelectorAll('.category-chip');
+    const termCards = document.querySelectorAll('.glossario-term-card');
+    const noResultsDiv = document.getElementById('noResultsMessage');
+    
+    let activeCategory = 'Todos';
+    let searchQuery = '';
+    
+    function filterCards() {
+      let visibleCount = 0;
+      
+      termCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const word = card.getAttribute('data-word') || '';
+        const subtitle = card.getAttribute('data-subtitle') || '';
+        const tags = card.getAttribute('data-tags') || '';
+        // Obter todo o texto da definição
+        const definitionEl = card.querySelector('.term-definition');
+        const definitionText = definitionEl ? definitionEl.textContent.toLowerCase() : '';
+        
+        const matchesCategory = (activeCategory === 'Todos' || category === activeCategory);
+        
+        // Verifica se a busca coincide com a palavra, sigla/subtítulo, tags ou definição
+        const matchesSearch = !searchQuery || 
+                              word.includes(searchQuery) || 
+                              subtitle.includes(searchQuery) || 
+                              tags.includes(searchQuery) ||
+                              definitionText.includes(searchQuery);
+                              
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'block';
+          // Para reiniciar animação de fade in do card
+          card.style.animation = 'none';
+          card.offsetHeight; /* trigger reflow */
+          card.style.animation = null;
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Mostrar/Ocultar mensagem de erro se nenhum card for exibido
+      if (visibleCount === 0) {
+        noResultsDiv.style.display = 'block';
+      } else {
+        noResultsDiv.style.display = 'none';
+      }
+    }
+    
+    // Escuta input de pesquisa
+    searchInput.addEventListener('input', function(e) {
+      searchQuery = e.target.value.trim().toLowerCase();
+      
+      if (searchQuery.length > 0) {
+        clearSearchBtn.style.display = 'flex';
+      } else {
+        clearSearchBtn.style.display = 'none';
+      }
+      
+      filterCards();
+    });
+    
+    // Limpar pesquisa
+    clearSearchBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
+      filterCards();
+    });
+    
+    // Clique nos chips de categorias
+    categoryChips.forEach(chip => {
+      chip.addEventListener('click', function() {
+        categoryChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeCategory = chip.getAttribute('data-category');
+        filterCards();
+      });
+    });
+    
+    // Executa filtro inicial
+    filterCards();
+  });
+</script>
 {% endblock %}
