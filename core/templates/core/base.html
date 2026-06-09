@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block title %}CGVargas Informática — Soluções Digitais{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}CGVargas Informática: sistemas personalizados, integração com IA e desenvolvimento web de ponta para empresas e criadores.{% endblock %}">
+  <meta name="author" content="CGVargas Informática">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="{% block og_title %}CGVargas Informática{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Soluções digitais sob medida — software, IA e hardware.{% endblock %}">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://cgvargas.com.br{{ request.path }}">
+  <meta property="og:site_name"   content="CGVargas Informática">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ── NAVBAR ──────────────────────────────────────────── -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Navegação principal">
+  <div class="container">
+    <div class="navbar-inner">
+
+      <a href="{% url 'core:home' %}" class="navbar-brand" aria-label="CGVargas Informática — Início">
+        <div class="brand-dot"></div>
+        CGVargas<span style="color:var(--cyan)">.</span>
+      </a>
+
+      <ul class="navbar-menu" id="navMenu" role="list">
+        <li><a href="{% url 'core:home' %}">Início</a></li>
+        <li><a href="{% url 'core:servicos' %}">Serviços</a></li>
+        <li><a href="{% url 'core:hardware' %}">Hardware</a></li>
+        <li><a href="{% url 'portfolio:lista' %}">Portfólio</a></li>
+        <li><a href="{% url 'blog:lista' %}">Blog</a></li>
+        <li><a href="{% url 'glossario:index' %}">Glossário</a></li>
+        <li><a href="{% url 'core:sobre' %}">Sobre</a></li>
+        <li class="navbar-cta">
+          <a href="{% url 'core:contato' %}" class="btn btn-primary" id="navCtaBtn">Fale Conosco</a>
+        </li>
+      </ul>
+
+      <button class="navbar-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ── MENSAGENS DJANGO ─────────────────────────────────── -->
+{% if messages %}
+<div class="messages-container container" style="margin-top:5rem;">
+  {% for message in messages %}
+  <div class="message {{ message.tags }}" role="alert">
+    {% if message.tags == 'success' %}✅{% else %}⚠️{% endif %}
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ── CONTEÚDO PRINCIPAL ───────────────────────────────── -->
+<main id="main-content">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <div class="brand-dot"></div>
+          CGVargas<span style="color:var(--cyan)">.</span>
+        </div>
+        <p>Transformamos ideias em soluções digitais. Sistemas personalizados, integração com IA e desenvolvimento web para empresas e criadores.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'core:home' %}">Início</a></li>
+          <li><a href="{% url 'core:sobre' %}">Sobre</a></li>
+          <li><a href="{% url 'core:servicos' %}">Serviços</a></li>
+          <li><a href="{% url 'core:hardware' %}">Hardware</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Conteúdo</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'portfolio:lista' %}">Portfólio</a></li>
+          <li><a href="{% url 'blog:lista' %}">Blog</a></li>
+          <li><a href="{% url 'glossario:index' %}">Glossário de TI</a></li>
+          <li><a href="{% url 'core:privacidade' %}">Privacidade</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:cgvargas.inf@outlook.com">cgvargas.inf@outlook.com</a></li>
+          <li><a href="{% url 'core:contato' %}">Formulário de contato</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© CGVargas Informática 2017–2025. Todos os direitos reservados.</p>
+      <p>Feito com ♥ em <a href="https://www.djangoproject.com" target="_blank" rel="noopener">Django</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ── JS ──────────────────────────────────────────────── -->
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

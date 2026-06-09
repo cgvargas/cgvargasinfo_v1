@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+{% block title %}Hardware & Manutenção de Computadores — CGVargas{% endblock %}
+{% block meta_description %}Montagem de PCs personalizados, manutenção preventiva e corretiva de desktops e notebooks em Nilópolis. CGVargas Informática.{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Hardware</span>
+      </div>
+      <h1>Hardware & <span class="text-gradient">Manutenção</span></h1>
+      <p>Montagem, manutenção preventiva e corretiva para desktops e notebooks com diagnóstico preciso.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="services-grid">
+      <div class="card reveal">
+        <div class="card-icon">🖥️</div>
+        <h3>Montagem de PCs Personalizados</h3>
+        <p>Monte o computador ideal para o seu uso: gaming, trabalho, edição de vídeo ou escritório. Selecionamos os melhores componentes pelo melhor custo-benefício.</p>
+        <ul class="service-list" style="margin-top:1rem;">
+          <li class="service-list-item">Assessoria na escolha de componentes</li>
+          <li class="service-list-item">Montagem profissional com gerenciamento de cabos</li>
+          <li class="service-list-item">Teste completo pós-montagem</li>
+          <li class="service-list-item">Instalação de SO e drivers</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">🔧</div>
+        <h3>Manutenção Preventiva</h3>
+        <p>Evite problemas antes que aconteçam. Nossa manutenção preventiva prolonga a vida útil dos seus equipamentos e mantém a performance no máximo.</p>
+        <ul class="service-list" style="margin-top:1rem;">
+          <li class="service-list-item">Limpeza interna e troca de pasta térmica</li>
+          <li class="service-list-item">Verificação de temperatura e voltagem</li>
+          <li class="service-list-item">Atualização de drivers e firmware</li>
+          <li class="service-list-item">Backup e organização de dados</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">🩺</div>
+        <h3>Manutenção Corretiva</h3>
+        <p>Computador com problema? Fazemos diagnóstico completo e reparamos com agilidade. Desktop, notebook, tela, teclado, placa-mãe — atendemos tudo.</p>
+        <ul class="service-list" style="margin-top:1rem;">
+          <li class="service-list-item">Diagnóstico completo de hardware</li>
+          <li class="service-list-item">Troca de peças com garantia</li>
+          <li class="service-list-item">Recuperação de dados</li>
+          <li class="service-list-item">Formatação e reinstalação de sistema</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">💾</div>
+        <h3>Upgrades & Otimização</h3>
+        <p>Seu computador ficou lento? Um upgrade certeiro pode resolver sem precisar comprar um novo. Analisamos e recomendamos a melhor solução.</p>
+        <ul class="service-list" style="margin-top:1rem;">
+          <li class="service-list-item">Upgrade de memória RAM</li>
+          <li class="service-list-item">Troca de HD por SSD</li>
+          <li class="service-list-item">Upgrade de placa de vídeo</li>
+          <li class="service-list-item">Otimização do sistema operacional</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">🌐</div>
+        <h3>Redes e Conectividade</h3>
+        <p>Configuração e suporte para redes domésticas e empresariais. Wi-Fi, cabeamento e segurança para manter você sempre conectado.</p>
+        <ul class="service-list" style="margin-top:1rem;">
+          <li class="service-list-item">Configuração de roteadores e switches</li>
+          <li class="service-list-item">Cabeamento estruturado</li>
+          <li class="service-list-item">Configuração de VPN</li>
+          <li class="service-list-item">Diagnóstico de conectividade</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">🔒</div>
+        <h3>Segurança Digital</h3>
+        <p>Proteja seus dados e equipamentos contra ameaças digitais. Configuramos soluções de segurança para uso doméstico e corporativo.</p>
+        <ul class="service-list" style="margin-top:1rem;">
+          <li class="service-list-item">Remoção de vírus e malware</li>
+          <li class="service-list-item">Configuração de antivírus</li>
+          <li class="service-list-item">Backup em nuvem</li>
+          <li class="service-list-item">Orientação de boas práticas</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Seu equipamento precisa de <span class="text-gradient">atenção?</span></h2>
+      <p>Entre em contato e agende uma visita ou traga seu equipamento para diagnóstico.</p>
+      <div class="cta-actions">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary" id="hardwareCtaBtn">Solicitar Atendimento</a>
+        <a href="mailto:cgvargas.inf@outlook.com" class="btn btn-outline" id="hardwareEmailBtn">Enviar E-mail</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

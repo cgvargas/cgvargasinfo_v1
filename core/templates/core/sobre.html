@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+{% block title %}Sobre a CGVargas Informática — Nossa História{% endblock %}
+{% block meta_description %}Conheça a CGVargas Informática: uma empresa especializada em soluções digitais sob medida, unindo tecnologia, design e IA desde 2017.{% endblock %}
+
+{% block content %}
+
+<section class="page-hero" aria-label="Sobre nós">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Sobre</span>
+      </div>
+      <h1>Sobre a <span class="text-gradient">CGVargas</span></h1>
+      <p>Uma empresa nascida da paixão por tecnologia e pela vontade de criar soluções que fazem diferença.</p>
+    </div>
+  </div>
+</section>
+
+<!-- História -->
+<section class="section">
+  <div class="container">
+    <div class="about-layout">
+      <div>
+        <div class="section-header reveal">
+          <div class="section-line"></div>
+          <h2>Nossa <span class="text-gradient">História</span></h2>
+        </div>
+        <div class="reveal" style="color:var(--text-secondary);line-height:1.9;display:flex;flex-direction:column;gap:1.25rem;">
+          <p>
+            A CGVargas Informática nasceu em 2017 com um objetivo claro: oferecer soluções digitais de qualidade
+            acessíveis para negócios de todos os tamanhos. O que começou como um projeto de prestação de serviços
+            em hardware evoluiu para uma empresa full-service em tecnologia da informação.
+          </p>
+          <p>
+            Ao longo dos anos, expandimos nossa atuação para o desenvolvimento de software, integração com
+            inteligência artificial e criação de sistemas web personalizados, sempre mantendo o compromisso
+            com a qualidade e a satisfação do cliente.
+          </p>
+          <p>
+            Hoje, a CGVargas Informática é referência em Nilópolis e região, atendendo empresas e profissionais
+            que buscam parceiros tecnológicos confiáveis e inovadores.
+          </p>
+        </div>
+        <div class="reveal" style="margin-top:2rem;">
+          <a href="{% url 'core:contato' %}" class="btn btn-primary" id="sobreCtaBtn">Entre em Contato</a>
+        </div>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-card-main">
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">+7</div>
+              <div class="stat-label">Anos no mercado</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Foco no cliente</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">NIT</div>
+              <div class="stat-label">Nilópolis, RJ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Missão, Visão e Valores -->
+<section class="section tech-section">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-line"></div>
+      <h2>Missão, Visão e <span class="text-gradient">Valores</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="card reveal">
+        <div class="card-icon">🎯</div>
+        <h3>Missão</h3>
+        <p>Oferecer soluções digitais de alta qualidade que impulsionem o crescimento dos nossos clientes, com foco em personalização, performance e inovação.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔭</div>
+        <h3>Visão</h3>
+        <p>Ser reconhecida como referência regional em tecnologia da informação, conectando pequenas e médias empresas às melhores soluções digitais disponíveis.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">💎</div>
+        <h3>Valores</h3>
+        <p>Ética, transparência, comprometimento com resultados, inovação contínua e parceria genuína com cada cliente que confia no nosso trabalho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Vamos construir algo <span class="text-gradient">incrível juntos?</span></h2>
+      <p>Entre em contato e descubra como podemos ajudar o seu negócio a crescer com tecnologia.</p>
+      <div class="cta-actions">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary" id="sobreCtaFinalBtn">Falar com a CGVargas</a>
+        <a href="{% url 'portfolio:lista' %}" class="btn btn-outline" id="sobrePortfolioBtn">Ver Portfólio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

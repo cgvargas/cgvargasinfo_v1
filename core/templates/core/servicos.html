@@ -1,0 +1,117 @@
+{% extends 'core/base.html' %}
+{% block title %}Serviços de Software & Desenvolvimento — CGVargas{% endblock %}
+{% block meta_description %}Desenvolvimento de sistemas web, integração com IA, análise de requisitos e suporte técnico especializado. CGVargas Informática, Nilópolis RJ.{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Serviços</span>
+      </div>
+      <h1>Software & <span class="text-gradient">Desenvolvimento</span></h1>
+      <p>Soluções web modernas, robustas e personalizadas para o seu negócio crescer com tecnologia.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="service-detail">
+      <div class="reveal">
+        <div class="section-line"></div>
+        <h2>Desenvolvimento <span class="text-gradient">Web</span></h2>
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">
+          Criamos aplicações web completas — desde o planejamento até o deploy — com foco em
+          performance, segurança e escalabilidade. Utilizamos as melhores tecnologias do mercado
+          para entregar produtos que realmente funcionam.
+        </p>
+        <ul class="service-list">
+          <li class="service-list-item">Sites institucionais e landing pages</li>
+          <li class="service-list-item">Sistemas web e aplicativos SaaS</li>
+          <li class="service-list-item">APIs RESTful e integrações</li>
+          <li class="service-list-item">E-commerce e lojas virtuais</li>
+          <li class="service-list-item">Painéis administrativos (CMS)</li>
+          <li class="service-list-item">Deploy em nuvem (AWS, GCP, Render)</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="align-self:center;">
+        <div class="card-icon">💻</div>
+        <h3>Tecnologias</h3>
+        <div class="tech-grid" style="justify-content:flex-start;margin-top:1rem;gap:0.5rem;">
+          <div class="tech-item" style="font-size:0.82rem;padding:0.4rem 0.9rem;"><span>🐍</span> Python/Django</div>
+          <div class="tech-item" style="font-size:0.82rem;padding:0.4rem 0.9rem;"><span>⚛️</span> React</div>
+          <div class="tech-item" style="font-size:0.82rem;padding:0.4rem 0.9rem;"><span>🐘</span> PostgreSQL</div>
+          <div class="tech-item" style="font-size:0.82rem;padding:0.4rem 0.9rem;"><span>🐳</span> Docker</div>
+          <div class="tech-item" style="font-size:0.82rem;padding:0.4rem 0.9rem;"><span>☁️</span> Cloud</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-detail">
+      <div class="reveal">
+        <div class="section-line"></div>
+        <h2>Integração com <span class="text-gradient">Inteligência Artificial</span></h2>
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">
+          A IA não é o futuro — é o presente. Incorporamos modelos de linguagem e machine learning
+          nos seus sistemas para automatizar processos, melhorar decisões e gerar valor real.
+        </p>
+        <ul class="service-list">
+          <li class="service-list-item">Chatbots inteligentes com GPT/Gemini</li>
+          <li class="service-list-item">Automação de processos com IA</li>
+          <li class="service-list-item">Análise e classificação de dados</li>
+          <li class="service-list-item">Geração de conteúdo automatizada</li>
+          <li class="service-list-item">Integração com APIs de IA (OpenAI, Google AI)</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="align-self:center;">
+        <div class="card-icon">🤖</div>
+        <h3>Como funciona</h3>
+        <p>Analisamos seu fluxo de trabalho, identificamos onde a IA pode gerar mais valor e implementamos a solução de forma integrada ao seu sistema atual.</p>
+      </div>
+    </div>
+
+    <div class="service-detail">
+      <div class="reveal">
+        <div class="section-line"></div>
+        <h2>Análise de Requisitos e <span class="text-gradient">Consultoria</span></h2>
+        <p style="color:var(--text-secondary);margin-bottom:1.5rem;">
+          Antes de codar, precisamos entender. Realizamos análise detalhada do seu negócio
+          para garantir que o software entregue exatamente o que você precisa.
+        </p>
+        <ul class="service-list">
+          <li class="service-list-item">Levantamento e documentação de requisitos</li>
+          <li class="service-list-item">Modelagem de processos (BPMN)</li>
+          <li class="service-list-item">Escolha da arquitetura ideal</li>
+          <li class="service-list-item">Planejamento de sprints e entregas</li>
+          <li class="service-list-item">Suporte técnico pós-entrega</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="align-self:center;">
+        <div class="card-icon">📋</div>
+        <h3>Suporte Contínuo</h3>
+        <p>Nosso trabalho não termina na entrega. Oferecemos suporte técnico especializado para manter seu sistema sempre funcionando com performance máxima.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Tem um projeto em <span class="text-gradient">mente?</span></h2>
+      <p>Vamos conversar! Entre em contato e receba uma proposta personalizada sem compromisso.</p>
+      <div class="cta-actions">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary" id="servicosCtaBtn">Solicitar Orçamento</a>
+        <a href="{% url 'portfolio:lista' %}" class="btn btn-outline" id="servicosPortfolioBtn">Ver Exemplos de Projetos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

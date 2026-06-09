@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ post.titulo }} — CGTecnoBlog{% endblock %}
+{% block meta_description %}{{ post.resumo }}{% endblock %}
+{% block og_title %}{{ post.titulo }}{% endblock %}
+{% block og_description %}{{ post.resumo }}{% endblock %}
+
+{% block content %}
+
+<section class="post-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="{% url 'core:home' %}">Início</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="{% url 'blog:lista' %}">Blog</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>{{ post.titulo|truncatechars:40 }}</span>
+    </div>
+
+    <div style="max-width:780px;margin-top:1.5rem;">
+      {% if post.categoria %}
+      <div style="margin-bottom:1rem;">
+        <span class="badge">{{ post.categoria.nome }}</span>
+      </div>
+      {% endif %}
+
+      <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:1rem;">
+        {{ post.titulo }}
+      </h1>
+
+      <p style="color:var(--text-secondary);font-size:1.05rem;margin-bottom:1.5rem;">
+        {{ post.resumo }}
+      </p>
+
+      <div style="display:flex;align-items:center;gap:1rem;color:var(--text-muted);font-size:0.85rem;">
+        <span>📅 <time datetime="{{ post.data_criacao|date:'Y-m-d' }}">{{ post.data_criacao|date:"d \d\e F \d\e Y" }}</time></span>
+        {% if post.data_atualizacao != post.data_criacao %}
+        <span>• ✏️ Atualizado em {{ post.data_atualizacao|date:"d/m/Y" }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if post.imagem_capa %}
+<div style="background:var(--bg-secondary);padding:0 0 3rem;">
+  <div class="container">
+    <img src="{{ post.imagem_capa.url }}" alt="{{ post.titulo }}"
+         style="width:100%;max-width:900px;margin:0 auto;border-radius:var(--radius-xl);display:block;box-shadow:var(--shadow-card);">
+  </div>
+</div>
+{% endif %}
+
+<section class="section" style="padding-top:2rem;">
+  <div class="container">
+    <div class="post-content">
+      {{ post.conteudo|safe }}
+    </div>
+
+    <!-- Tags e compartilhamento -->
+    <div style="max-width:780px;margin:0 auto;padding-top:2.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        {% if post.categoria %}
+        <span class="badge">{{ post.categoria.nome }}</span>
+        {% endif %}
+      </div>
+      <a href="{% url 'blog:lista' %}" class="btn btn-outline" style="font-size:0.85rem;padding:0.5rem 1.2rem;">
+        ← Voltar ao Blog
+      </a>
+    </div>
+
+    <!-- Posts relacionados -->
+    {% if posts_relacionados %}
+    <div style="max-width:900px;margin:4rem auto 0;">
+      <h2 style="font-size:1.4rem;margin-bottom:2rem;">Você também pode gostar</h2>
+      <div class="grid-3" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+        {% for rel in posts_relacionados %}
+        <article class="blog-card">
+          {% if rel.imagem_capa %}
+            <img src="{{ rel.imagem_capa.url }}" alt="{{ rel.titulo }}" class="blog-card-img" loading="lazy">
+          {% else %}
+            <div class="blog-card-img-placeholder">📰</div>
+          {% endif %}
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <time datetime="{{ rel.data_criacao|date:'Y-m-d' }}">{{ rel.data_criacao|date:"d/m/Y" }}</time>
+            </div>
+            <h3><a href="{{ rel.get_absolute_url }}">{{ rel.titulo }}</a></h3>
+            <p>{{ rel.resumo|truncatechars:100 }}</p>
+            <a href="{{ rel.get_absolute_url }}" class="blog-card-link">Ler artigo</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

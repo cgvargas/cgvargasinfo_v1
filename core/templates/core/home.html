@@ -1,0 +1,302 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}CGVargas Informática — Soluções Digitais com IA{% endblock %}
+{% block meta_description %}CGVargas Informática: sistemas personalizados, integração com IA e desenvolvimento web de ponta. Transformamos ideias em soluções digitais para empresas e criadores.{% endblock %}
+
+{% block content %}
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="hero" aria-label="Apresentação">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-label">
+        <div class="hero-label-dot"></div>
+        <span class="badge">Nilópolis, RJ — Desde 2017</span>
+      </div>
+
+      <h1>
+        Transformamos ideias em<br>
+        <span class="text-gradient" id="typewriter">Soluções Digitais.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Sistemas personalizados, integração com IA e desenvolvimento web de ponta
+        para empresas e criadores que querem ir mais longe.
+      </p>
+
+      <div class="hero-actions">
+        <a href="{% url 'core:servicos' %}" class="btn btn-primary" id="heroServicosBtn">
+          Nossos Serviços
+        </a>
+        <a href="{% url 'core:contato' %}" class="btn btn-outline" id="heroContatoBtn">
+          Fale Conosco
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── SOBRE ──────────────────────────────────────────────── -->
+<section class="section" id="sobre" aria-label="Sobre a empresa">
+  <div class="container">
+    <div class="about-layout">
+
+      <div class="about-content">
+        <div class="section-header reveal">
+          <div class="section-line"></div>
+          <h2>Sobre a <span class="text-gradient">CGVargas</span></h2>
+          <p>
+            A CGVargas Informática é uma empresa especializada em criar soluções digitais sob medida.
+            Unimos tecnologia, design e inteligência artificial para entregar sistemas eficientes
+            e inteligentes para negócios de todos os tamanhos.
+          </p>
+        </div>
+
+        <div class="about-features reveal">
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-text">
+              <h4>Foco na Personalização</h4>
+              <p>Cada projeto é único. Desenvolvemos soluções sob medida para a sua realidade.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-text">
+              <h4>Integração com IA</h4>
+              <p>Incorporamos inteligência artificial para automatizar processos e gerar valor real.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-text">
+              <h4>Performance e Inovação</h4>
+              <p>Sistemas rápidos, seguros e sempre alinhados com as melhores práticas do mercado.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-top:2rem;">
+          <a href="{% url 'core:sobre' %}" class="btn btn-outline" id="sobreMoreBtn">Saiba mais sobre nós</a>
+        </div>
+      </div>
+
+      <div class="about-visual reveal">
+        <div class="about-card-main">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;">
+            <div class="brand-dot"></div>
+            <span style="font-family:var(--font-heading);font-weight:700;font-size:1.1rem;">CGVargas Informática</span>
+          </div>
+          <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1.5rem;">
+            Nosso foco está na personalização, na performance e na inovação constante.
+          </p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">+7</div>
+              <div class="stat-label">Anos de experiência</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Projetos personalizados</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">IA</div>
+              <div class="stat-label">Integração nativa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVIÇOS ───────────────────────────────────────────── -->
+<section class="section tech-section" id="servicos" aria-label="Nossos serviços">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-line"></div>
+      <h2>Nossos <span class="text-gradient">Serviços</span></h2>
+      <p>Soluções completas em software e hardware para impulsionar o seu negócio.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="card reveal">
+        <div class="card-icon">💻</div>
+        <h3>Software & Desenvolvimento</h3>
+        <p>
+          Análise de requisitos, desenvolvimento de aplicações web robustas e escaláveis,
+          e suporte técnico especializado para garantir a performance do seu sistema.
+        </p>
+        <div style="margin-top:1.5rem;">
+          <a href="{% url 'core:servicos' %}" class="btn btn-ghost" id="cardServBtn">Saiba mais →</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">🔧</div>
+        <h3>Hardware & Manutenção</h3>
+        <p>
+          Serviços completos de montagem de computadores personalizados,
+          manutenção preventiva e corretiva para desktops e notebooks.
+        </p>
+        <div style="margin-top:1.5rem;">
+          <a href="{% url 'core:hardware' %}" class="btn btn-ghost" id="cardHwBtn">Saiba mais →</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">🤖</div>
+        <h3>Integração com IA</h3>
+        <p>
+          Incorporamos inteligência artificial nos seus processos: chatbots, automação,
+          análise de dados e muito mais para ganhar eficiência.
+        </p>
+        <div style="margin-top:1.5rem;">
+          <a href="{% url 'core:contato' %}" class="btn btn-ghost" id="cardIaBtn">Fale conosco →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFÓLIO DESTAQUE ─────────────────────────────────── -->
+{% if projetos_destaque %}
+<section class="section" id="portfolio" aria-label="Projetos em destaque">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-line"></div>
+      <h2>Portfólio em <span class="text-gradient">Destaque</span></h2>
+      <p>Alguns dos projetos que desenvolvemos com dedicação e tecnologia de ponta.</p>
+    </div>
+
+    <div class="portfolio-grid">
+      {% for projeto in projetos_destaque %}
+      <article class="portfolio-card reveal">
+        {% if projeto.imagem %}
+          <img src="{{ projeto.imagem.url }}" alt="{{ projeto.nome }}" class="portfolio-card-img" loading="lazy">
+        {% else %}
+          <div class="portfolio-card-img-placeholder" aria-hidden="true">🖥️</div>
+        {% endif %}
+        <div class="portfolio-card-body">
+          <h3>{{ projeto.nome }}</h3>
+          <p>{{ projeto.descricao_curta|default:projeto.descricao|truncatechars:120 }}</p>
+          {% if projeto.tecnologias.all %}
+          <div class="portfolio-card-techs">
+            {% for tech in projeto.tecnologias.all|slice:":4" %}
+            <span class="tech-tag">{{ tech.nome }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <div class="portfolio-card-links">
+            <a href="{{ projeto.get_absolute_url }}" class="btn btn-outline" style="font-size:0.85rem;padding:0.5rem 1.2rem;">Ver projeto</a>
+            {% if projeto.url_projeto %}
+            <a href="{{ projeto.url_projeto }}" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:0.85rem;padding:0.5rem 1rem;">↗ Demo</a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="text-center" style="margin-top:2.5rem;">
+      <a href="{% url 'portfolio:lista' %}" class="btn btn-outline" id="allPortfolioBtn">Ver todos os projetos</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── TECH STACK ─────────────────────────────────────────── -->
+<section class="section tech-section" aria-label="Tecnologias utilizadas">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-line"></div>
+      <h2>Tecnologias que <span class="text-gradient">Utilizamos</span></h2>
+      <p>Nossa stack é moderna, robusta e escolhida a dedo para cada tipo de projeto.</p>
+    </div>
+
+    <div class="tech-grid reveal">
+      <div class="tech-item"><span>🐍</span> Python</div>
+      <div class="tech-item"><span>🦄</span> Django</div>
+      <div class="tech-item"><span>⚛️</span> React</div>
+      <div class="tech-item"><span>🟨</span> JavaScript</div>
+      <div class="tech-item"><span>🐘</span> PostgreSQL</div>
+      <div class="tech-item"><span>🐳</span> Docker</div>
+      <div class="tech-item"><span>☁️</span> Cloud (AWS/GCP)</div>
+      <div class="tech-item"><span>🤖</span> OpenAI / IA</div>
+      <div class="tech-item"><span>🎨</span> Figma</div>
+      <div class="tech-item"><span>🔧</span> Linux</div>
+      <div class="tech-item"><span>📱</span> Responsivo</div>
+      <div class="tech-item"><span>🔒</span> Segurança</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BLOG RECENTE ───────────────────────────────────────── -->
+{% if posts_recentes %}
+<section class="section" aria-label="Posts recentes do blog">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-line"></div>
+      <h2><span class="text-gradient">CGTecnoBlog</span></h2>
+      <p>Artigos sobre tecnologia, IA, programação e muito mais.</p>
+    </div>
+
+    <div class="grid-3">
+      {% for post in posts_recentes %}
+      <article class="blog-card reveal">
+        {% if post.imagem_capa %}
+          <img src="{{ post.imagem_capa.url }}" alt="{{ post.titulo }}" class="blog-card-img" loading="lazy">
+        {% else %}
+          <div class="blog-card-img-placeholder" aria-hidden="true">📰</div>
+        {% endif %}
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            {% if post.categoria %}<span class="badge">{{ post.categoria.nome }}</span>{% endif %}
+            <time datetime="{{ post.data_criacao|date:'Y-m-d' }}">{{ post.data_criacao|date:"d/m/Y" }}</time>
+          </div>
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a></h3>
+          <p>{{ post.resumo }}</p>
+          <a href="{{ post.get_absolute_url }}" class="blog-card-link">Ler artigo</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="text-center" style="margin-top:2.5rem;">
+      <a href="{% url 'blog:lista' %}" class="btn btn-outline" id="allBlogBtn">Ver todos os posts</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── CTA FINAL ──────────────────────────────────────────── -->
+<section class="cta-section" aria-label="Chamada para ação">
+  <div class="container">
+    <div class="reveal">
+      <h2>Pronto para transformar sua <span class="text-gradient">ideia em realidade?</span></h2>
+      <p>Entre em contato e vamos conversar sobre o seu projeto. Sem compromisso.</p>
+      <div class="cta-actions">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary" id="ctaContactBtn">Solicitar Orçamento</a>
+        <a href="mailto:cgvargas.inf@outlook.com" class="btn btn-outline" id="ctaEmailBtn">Enviar E-mail</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

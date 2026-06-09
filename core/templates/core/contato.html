@@ -1,0 +1,103 @@
+{% extends 'core/base.html' %}
+{% block title %}Fale Conosco — CGVargas Informática{% endblock %}
+{% block meta_description %}Entre em contato com a CGVargas Informática. Solicite um orçamento, tire dúvidas ou agende uma visita técnica.{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Contato</span>
+      </div>
+      <h1>Fale <span class="text-gradient">Conosco</span></h1>
+      <p>Preencha o formulário ou use um dos nossos canais de atendimento. Respondemos rapidamente.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+
+      <div class="contact-info reveal">
+        <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">Canais de <span class="text-gradient">Atendimento</span></h2>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div class="contact-item-text">
+            <h4>E-mail</h4>
+            <a href="mailto:cgvargas.inf@outlook.com">cgvargas.inf@outlook.com</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">
+            <h4>Localização</h4>
+            <p>Nilópolis, Rio de Janeiro — RJ</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">⏰</div>
+          <div class="contact-item-text">
+            <h4>Horário de Atendimento</h4>
+            <p>Segunda a Sexta: 9h–18h</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">⚡</div>
+          <div class="contact-item-text">
+            <h4>Tempo de Resposta</h4>
+            <p>Respondemos em até 24 horas úteis.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:1.5rem;background:linear-gradient(135deg,rgba(0,114,255,0.1),rgba(0,198,255,0.05));">
+          <h4 style="margin-bottom:0.5rem;">🚀 Projeto Urgente?</h4>
+          <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;">
+            Para projetos urgentes, mencione no assunto "URGENTE" e priorizaremos seu atendimento.
+          </p>
+          <a href="mailto:cgvargas.inf@outlook.com?subject=URGENTE - Projeto sob medida" class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.2rem;" id="urgentEmailBtn">
+            Enviar como Urgente
+          </a>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <h2 style="font-size:1.3rem;margin-bottom:1.75rem;">Enviar <span class="text-gradient">Mensagem</span></h2>
+        <form method="post" action="{% url 'core:contato' %}" id="contactForm" novalidate>
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome" class="form-label">Nome *</label>
+              <input type="text" id="nome" name="nome" class="form-control" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">E-mail *</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="seu@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="assunto" class="form-label">Assunto</label>
+            <input type="text" id="assunto" name="assunto" class="form-control" placeholder="Ex: Desenvolvimento de sistema web">
+          </div>
+          <div class="form-group">
+            <label for="mensagem" class="form-label">Mensagem *</label>
+            <textarea id="mensagem" name="mensagem" class="form-control" rows="6" placeholder="Descreva seu projeto ou dúvida..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="submitContactBtn">
+            Enviar Mensagem
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

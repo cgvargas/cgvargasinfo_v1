@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% block title %}Portfólio de Projetos — CGVargas Informática{% endblock %}
+{% block meta_description %}Conheça os projetos desenvolvidos pela CGVargas Informática: sistemas web, aplicações com IA e soluções digitais personalizadas.{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Portfólio</span>
+      </div>
+      <h1>Nosso <span class="text-gradient">Portfólio</span></h1>
+      <p>Projetos desenvolvidos com dedicação, tecnologia de ponta e foco nos resultados do cliente.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Filtro por tecnologia -->
+    {% if tecnologias %}
+    <div class="filter-bar reveal">
+      <a href="{% url 'portfolio:lista' %}" class="filter-btn {% if not tech_filter %}active{% endif %}">Todos</a>
+      {% for tech in tecnologias %}
+      <a href="?tech={{ tech.nome }}" class="filter-btn {% if tech_filter == tech.nome %}active{% endif %}">{{ tech.nome }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if projetos %}
+    <div class="portfolio-grid">
+      {% for projeto in projetos %}
+      <article class="portfolio-card reveal">
+        {% if projeto.imagem %}
+          <img src="{{ projeto.imagem.url }}" alt="{{ projeto.nome }}" class="portfolio-card-img" loading="lazy">
+        {% else %}
+          <div class="portfolio-card-img-placeholder" aria-hidden="true">🖥️</div>
+        {% endif %}
+        <div class="portfolio-card-body">
+          <h3>
+            {{ projeto.nome }}
+            {% if projeto.destaque %}
+            <span class="badge" style="font-size:0.65rem;margin-left:0.5rem;">Destaque</span>
+            {% endif %}
+          </h3>
+          <p>{{ projeto.descricao_curta|default:projeto.descricao|truncatechars:130 }}</p>
+
+          {% if projeto.tecnologias.all %}
+          <div class="portfolio-card-techs">
+            {% for tech in projeto.tecnologias.all|slice:":5" %}
+            <span class="tech-tag">{{ tech.nome }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="portfolio-card-links">
+            <a href="{{ projeto.get_absolute_url }}" class="btn btn-outline" style="font-size:0.82rem;padding:0.5rem 1.1rem;">
+              Ver Detalhes
+            </a>
+            {% if projeto.url_projeto %}
+            <a href="{{ projeto.url_projeto }}" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:0.82rem;padding:0.5rem 0.9rem;">↗ Demo</a>
+            {% endif %}
+            {% if projeto.url_repositorio %}
+            <a href="{{ projeto.url_repositorio }}" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:0.82rem;padding:0.5rem 0.9rem;">⌥ GitHub</a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="text-center" style="padding:4rem 0;">
+      <p style="font-size:3rem;margin-bottom:1rem;">🚀</p>
+      <h3 style="margin-bottom:0.5rem;">Em breve!</h3>
+      <p style="color:var(--text-secondary);">Estamos finalizando os detalhes dos nossos projetos. Volte em breve!</p>
+      <div style="margin-top:1.5rem;">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary">Falar sobre um projeto</a>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Seu projeto pode ser o <span class="text-gradient">próximo!</span></h2>
+      <p>Entre em contato e vamos transformar sua ideia em uma solução real.</p>
+      <div class="cta-actions">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary" id="portfolioCtaBtn">Iniciar Projeto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

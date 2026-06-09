@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ projeto.nome }} — Portfólio CGVargas{% endblock %}
+{% block meta_description %}{{ projeto.descricao_curta|default:projeto.descricao|truncatechars:155 }}{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="{% url 'portfolio:lista' %}">Portfólio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>{{ projeto.nome }}</span>
+      </div>
+      <h1>{{ projeto.nome }}</h1>
+      {% if projeto.descricao_curta %}
+      <p>{{ projeto.descricao_curta }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start;">
+
+      <!-- Imagem e descrição -->
+      <div>
+        {% if projeto.imagem %}
+        <img src="{{ projeto.imagem.url }}" alt="{{ projeto.nome }}"
+             style="width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-card);margin-bottom:2.5rem;">
+        {% endif %}
+
+        <div class="reveal">
+          <h2 style="font-size:1.4rem;margin-bottom:1rem;">Sobre o Projeto</h2>
+          <div style="color:var(--text-secondary);line-height:1.85;white-space:pre-line;">{{ projeto.descricao }}</div>
+        </div>
+      </div>
+
+      <!-- Sidebar com detalhes -->
+      <div class="reveal">
+        <div class="card" style="position:sticky;top:7rem;">
+          <h3 style="font-size:1rem;margin-bottom:1.5rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Detalhes do Projeto</h3>
+
+          {% if projeto.tecnologias.all %}
+          <div style="margin-bottom:1.5rem;">
+            <h4 style="font-size:0.85rem;margin-bottom:0.75rem;color:var(--text-secondary);">Tecnologias</h4>
+            <div class="portfolio-card-techs">
+              {% for tech in projeto.tecnologias.all %}
+              <span class="tech-tag">{{ tech.nome }}</span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if projeto.data_conclusao %}
+          <div style="margin-bottom:1.5rem;">
+            <h4 style="font-size:0.85rem;margin-bottom:0.4rem;color:var(--text-secondary);">Concluído em</h4>
+            <p style="font-family:var(--font-heading);font-size:0.95rem;">{{ projeto.data_conclusao|date:"F \d\e Y" }}</p>
+          </div>
+          {% endif %}
+
+          <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1.5rem;">
+            {% if projeto.url_projeto %}
+            <a href="{{ projeto.url_projeto }}" target="_blank" rel="noopener" class="btn btn-primary" style="justify-content:center;">
+              ↗ Acessar Projeto
+            </a>
+            {% endif %}
+            {% if projeto.url_repositorio %}
+            <a href="{{ projeto.url_repositorio }}" target="_blank" rel="noopener" class="btn btn-outline" style="justify-content:center;">
+              ⌥ Ver Código
+            </a>
+            {% endif %}
+            <a href="{% url 'core:contato' %}" class="btn btn-ghost" style="justify-content:center;font-size:0.9rem;">
+              💬 Projeto similar?
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Outros projetos -->
+    {% if outros_projetos %}
+    <div style="margin-top:5rem;">
+      <h2 style="font-size:1.4rem;margin-bottom:2rem;">Outros Projetos</h2>
+      <div class="portfolio-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));">
+        {% for outro in outros_projetos %}
+        <article class="portfolio-card reveal">
+          {% if outro.imagem %}
+            <img src="{{ outro.imagem.url }}" alt="{{ outro.nome }}" class="portfolio-card-img" loading="lazy">
+          {% else %}
+            <div class="portfolio-card-img-placeholder">🖥️</div>
+          {% endif %}
+          <div class="portfolio-card-body">
+            <h3>{{ outro.nome }}</h3>
+            <p>{{ outro.descricao_curta|default:outro.descricao|truncatechars:100 }}</p>
+            <div class="portfolio-card-links">
+              <a href="{{ outro.get_absolute_url }}" class="btn btn-outline" style="font-size:0.82rem;padding:0.5rem 1.1rem;">Ver Detalhes</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

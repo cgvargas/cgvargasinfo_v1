@@ -1,0 +1,135 @@
+{% extends 'core/base.html' %}
+{% block title %}Glossário de TI — Termos de Tecnologia — CGVargas{% endblock %}
+{% block meta_description %}Glossário completo de termos de tecnologia da informação. Encontre definições claras e objetivas sobre TI, programação, redes e muito mais.{% endblock %}
+
+{% block content %}
+
+<section class="glossario-hero">
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="{% url 'core:home' %}">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Glossário de TI</span>
+      </div>
+      <h1>Glossário de <span class="text-gradient">TI</span></h1>
+      <p>Definições claras e objetivas dos principais termos de tecnologia da informação.</p>
+
+      <div class="glossario-search" style="margin-top:2rem;">
+        <span class="glossario-search-icon">🔍</span>
+        <input
+          type="search"
+          id="glossSearchInput"
+          name="q"
+          value="{{ busca }}"
+          placeholder="Buscar termo..."
+          aria-label="Buscar termos no glossário"
+          autocomplete="off">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:2rem;">
+  <div class="container">
+
+    <!-- Navegação A-Z -->
+    <nav class="alpha-nav reveal" aria-label="Navegar por letra">
+      {% for letra in alfabeto %}
+      {% if letra in letras_com_termos %}
+        <a href="?letra={{ letra }}"
+           class="alpha-btn has-terms {% if letra_filtro == letra %}active{% endif %}"
+           aria-label="Termos com a letra {{ letra }}">{{ letra }}</a>
+      {% else %}
+        <span class="alpha-btn disabled" aria-hidden="true">{{ letra }}</span>
+      {% endif %}
+      {% endfor %}
+    </nav>
+
+    <!-- Estado de busca -->
+    {% if busca %}
+    <div class="reveal" style="margin-bottom:2rem;">
+      <p style="color:var(--text-secondary);">
+        Mostrando resultados para "<strong style="color:var(--text-primary);">{{ busca }}</strong>"
+        — {{ termos.count }} termo{{ termos.count|pluralize }} encontrado{{ termos.count|pluralize }}.
+        <a href="{% url 'glossario:index' %}" style="margin-left:0.5rem;">Limpar busca ×</a>
+      </p>
+    </div>
+    {% elif letra_filtro %}
+    <div class="reveal" style="margin-bottom:2rem;">
+      <p style="color:var(--text-secondary);">
+        Termos com a letra <strong style="color:var(--cyan);">{{ letra_filtro }}</strong>
+        — {{ termos.count }} termo{{ termos.count|pluralize }}.
+        <a href="{% url 'glossario:index' %}" style="margin-left:0.5rem;">Ver todos ×</a>
+      </p>
+    </div>
+    {% endif %}
+
+    <!-- Lista de termos agrupados por letra -->
+    {% if termos %}
+
+    {% if busca or letra_filtro %}
+      <!-- Sem agrupamento em modo busca ou filtro de letra -->
+      <div class="glossario-list reveal">
+        {% for termo in termos %}
+        <div class="glossario-term">
+          <div class="glossario-term-word">{{ termo.palavra }}</div>
+          <div class="glossario-term-def">{{ termo.definicao }}</div>
+          {% if termo.categoria %}
+          <span class="badge" style="margin-top:0.5rem;font-size:0.7rem;">{{ termo.categoria.nome }}</span>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <!-- Agrupado por letra -->
+      {% regroup termos by letra as grupos %}
+      {% for grupo in grupos %}
+      <div class="glossario-group reveal">
+        <div class="glossario-letter" id="letra-{{ grupo.grouper }}">{{ grupo.grouper }}</div>
+        <div class="glossario-list">
+          {% for termo in grupo.list %}
+          <div class="glossario-term">
+            <div class="glossario-term-word">{{ termo.palavra }}</div>
+            <div class="glossario-term-def">{{ termo.definicao }}</div>
+            {% if termo.categoria %}
+            <span class="badge" style="margin-top:0.5rem;font-size:0.7rem;">{{ termo.categoria.nome }}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    {% else %}
+    <div class="text-center" style="padding:4rem 0;">
+      <p style="font-size:3rem;margin-bottom:1rem;">📚</p>
+      {% if busca %}
+      <h3 style="margin-bottom:0.5rem;">Nenhum resultado para "{{ busca }}"</h3>
+      <p style="color:var(--text-secondary);">Tente outro termo ou <a href="{% url 'glossario:index' %}">veja todos os termos</a>.</p>
+      {% else %}
+      <h3 style="margin-bottom:0.5rem;">Glossário sendo construído</h3>
+      <p style="color:var(--text-secondary);">Em breve teremos centenas de termos disponíveis!</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Não encontrou o termo que <span class="text-gradient">procurava?</span></h2>
+      <p>Entre em contato e sugerimos a inclusão do termo no nosso glossário.</p>
+      <div class="cta-actions">
+        <a href="{% url 'core:contato' %}" class="btn btn-primary" id="glossCtaBtn">Sugerir Termo</a>
+        <a href="{% url 'blog:lista' %}" class="btn btn-outline" id="glossBlogBtn">Ver Blog de TI</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
