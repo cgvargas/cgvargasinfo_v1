@@ -10,11 +10,9 @@ def ping(request):
         with connection.cursor() as cursor:
             cursor.execute("SELECT 1")
         db_status = "connected"
-        db_vendor = connection.vendor
-    except Exception as e:
-        db_status = f"error: {str(e)}"
-        db_vendor = "unknown"
-    return JsonResponse({"status": "ok", "db": db_status, "vendor": db_vendor})
+    except Exception:
+        db_status = "error"
+    return JsonResponse({"status": "ok", "db": db_status})
 
 
 urlpatterns = [
