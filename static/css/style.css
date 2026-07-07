@@ -708,9 +708,50 @@ ul { list-style: none; }
 }
 .post-content pre code { background: none; padding: 0; color: var(--text-primary); }
 .post-content img {
-  border-radius: var(--radius-md);
+  position: static !important;
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  display: block;
   margin: 1.5rem auto;
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
+}
+
+/* ── AJUSTES DE IMPORTAÇÃO DO WIX (BLOG) ─────────────────── */
+
+/* Oculta os cabeçalhos e rodapés duplicados do Wix dentro do post */
+.post-content .PhCafd,
+.post-content [data-hook="post-hero-image"],
+.post-content [data-hook="post-footer"] {
+  display: none !important;
+}
+
+/* Faz com que os wrappers de imagens do Wix comportem-se como conteúdos transparentes */
+.post-content wow-image,
+.post-content .qW3Ua,
+.post-content ._3Eesd,
+.post-content ._5TbcM,
+.post-content .MP9Zu {
+  display: contents !important;
+}
+
+/* Ajusta o container de figura do Wix */
+.post-content figure.Exewp {
+  display: block !important;
+  max-width: 100% !important;
+  margin: 2rem auto !important;
+  text-align: center;
+}
+
+/* Ajusta as legendas de imagens */
+.post-content figcaption {
+  display: block !important;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 /* ── PORTFOLIO GRID ────────────────────────────────────── */
