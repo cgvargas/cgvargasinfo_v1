@@ -1,0 +1,16 @@
+name: Keep Alive Site and Database
+
+on:
+  schedule:
+    # Executa todos os dias às 12:00 UTC (09:00 Horário de Brasília)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Permite disparar manualmente via aba Actions no GitHub
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send request to ping endpoint
+        run: |
+          curl -s -f https://www.cgvargas.com.br/ping/ || echo "Ping no domínio personalizado falhou..."
+          curl -s -f https://cgvargas-site.onrender.com/ping/ || echo "Ping no Render falhou..."
