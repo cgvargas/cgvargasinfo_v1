@@ -131,4 +131,85 @@
   </div>
 </section>
 
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Localiza os blocos de vídeo do Wix no conteúdo do artigo
+    const videoFigures = document.querySelectorAll('.post-content figure[data-hook="figure-VIDEO"]');
+    
+    videoFigures.forEach(fig => {
+      const button = fig.querySelector('.react-player__preview');
+      if (!button) return;
+      
+      const style = button.getAttribute('style') || '';
+      const bgMatch = style.match(/url\("?([^")]+)"?\)/);
+      if (!bgMatch) return;
+      
+      const bgUrl = bgMatch[1];
+      
+      // Caso 1: Vídeo hospedado no YouTube (Ex: Xbox One X)
+      if (bgUrl.includes('youtube.com') || bgUrl.includes('ytimg.com')) {
+        const ytIdMatch = bgUrl.match(/\/vi\/([^/]+)\//);
+        if (ytIdMatch) {
+          const ytId = ytIdMatch[1];
+          
+          const iframeWrapper = document.createElement('div');
+          iframeWrapper.className = 'youtube-video-container';
+          iframeWrapper.style.position = 'relative';
+          iframeWrapper.style.width = '100%';
+          iframeWrapper.style.paddingBottom = '56.25%'; // 16:9 Aspect Ratio
+          iframeWrapper.style.height = '0';
+          iframeWrapper.style.borderRadius = 'var(--radius-md)';
+          iframeWrapper.style.overflow = 'hidden';
+          iframeWrapper.style.boxShadow = 'var(--shadow-card)';
+          iframeWrapper.style.margin = '1.5rem 0';
+          
+          iframeWrapper.innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${ytId}?rel=0" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+            </iframe>
+          `;
+          
+          const playerDiv = fig.querySelector('.i5n99');
+          if (playerDiv) {
+            playerDiv.replaceWith(iframeWrapper);
+          } else {
+            fig.appendChild(iframeWrapper);
+          }
+        }
+      } 
+      // Caso 2: Vídeo nativo do Wix (MP4 na CDN da Wix)
+      else if (bgUrl.includes('wixstatic.com/media/')) {
+        const filenameMatch = bgUrl.match(/media\/([^.]+)\./);
+        if (filenameMatch) {
+          const filename = filenameMatch[1];
+          const wixVideoUrl = `https://video.wixstatic.com/video/${filename}/mp4/file.mp4`;
+          
+          const videoWrapper = document.createElement('div');
+          videoWrapper.style.margin = '1.5rem 0';
+          
+          videoWrapper.innerHTML = `
+            <video src="${wixVideoUrl}" 
+                   controls 
+                   poster="${bgUrl}"
+                   style="width: 100%; max-width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-card); aspect-ratio: 16/9; background: #000; display: block;">
+            </video>
+          `;
+          
+          const playerDiv = fig.querySelector('.i5n99');
+          if (playerDiv) {
+            playerDiv.replaceWith(videoWrapper);
+          } else {
+            fig.appendChild(videoWrapper);
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
+
 {% endblock %}
