@@ -183,12 +183,16 @@
         {% if projeto.imagens.all or projeto.videos.all %}
         <div class="gallery-container">
           <div class="gallery-main-viewer">
-            <!-- Visualizador de Imagem Principal -->
-            {% if projeto.imagem %}
+            <!-- Visualizador de Imagem Principal: usa 1ª da galeria se existir, senão a capa -->
+            {% with primeira_img=projeto.imagens.all.first %}
+            {% if primeira_img %}
+            <img id="viewerImage" src="{{ primeira_img.imagem.url }}" alt="{{ projeto.nome }}" class="viewer-media" style="display: block;">
+            {% elif projeto.imagem %}
             <img id="viewerImage" src="{{ projeto.imagem.url }}" alt="{{ projeto.nome }}" class="viewer-media" style="display: block;">
             {% else %}
             <img id="viewerImage" src="" alt="{{ projeto.nome }}" class="viewer-media" style="display: none;">
             {% endif %}
+            {% endwith %}
             
             <!-- Visualizador de Vídeo Curto (Cloudinary) -->
             <video id="viewerVideo" class="viewer-media" controls playsinline style="display: none;"></video>
@@ -201,19 +205,19 @@
           
           <!-- Faixa de Miniaturas (Thumbnails Strip) -->
           <div class="gallery-thumbnails">
-            <!-- Miniatura da Imagem Principal -->
-            {% if projeto.imagem %}
-            <div class="thumbnail-item active" data-type="image" data-src="{{ projeto.imagem.url }}">
-              <img src="{{ projeto.imagem.url }}" alt="Imagem Principal">
-            </div>
+            {% if projeto.imagens.all %}
+              <!-- Se há galeria, exibe apenas as imagens da galeria (sem repetir a capa) -->
+              {% for img in projeto.imagens.all %}
+              <div class="thumbnail-item {% if forloop.first %}active{% endif %}" data-type="image" data-src="{{ img.imagem.url }}" title="{{ img.legenda|default:'' }}">
+                <img src="{{ img.imagem.url }}" alt="{{ img.legenda|default:'Imagem Adicional' }}">
+              </div>
+              {% endfor %}
+            {% elif projeto.imagem %}
+              <!-- Sem galeria: exibe apenas a capa como thumbnail -->
+              <div class="thumbnail-item active" data-type="image" data-src="{{ projeto.imagem.url }}">
+                <img src="{{ projeto.imagem.url }}" alt="Imagem Principal">
+              </div>
             {% endif %}
-            
-            <!-- Miniaturas das Imagens Adicionais -->
-            {% for img in projeto.imagens.all %}
-            <div class="thumbnail-item" data-type="image" data-src="{{ img.imagem.url }}" title="{{ img.legenda|default:'' }}">
-              <img src="{{ img.imagem.url }}" alt="{{ img.legenda|default:'Imagem Adicional' }}">
-            </div>
-            {% endfor %}
             
             <!-- Miniaturas dos Vídeos -->
             {% for vid in projeto.videos.all %}
